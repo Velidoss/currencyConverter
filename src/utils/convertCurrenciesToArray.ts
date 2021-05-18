@@ -13,7 +13,7 @@ const convertCurrenciesToArray = (currencies: {[key: string]: ICurrency}): ICurr
       return 1;
     }
     return 0;
-  })
+  });
 };
 
 export default convertCurrenciesToArray;
