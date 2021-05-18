@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import TextField from '@material-ui/core/TextField';
-import { MenuItem } from '@material-ui/core';
+import { Button, MenuItem } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
-import { getCurrencies } from '../../store/converter/converterActions';
+import { getCurrencies, getExchangerate } from '../../store/converter/converterActions';
 import { useAppSelector } from '../../store/hooks';
 import ICurrency from './../../interfaces/ICurrency';
+import convertCurrency from './../../utils/convertCurrency';
 
 const Converter: React.FC = () => {
   const dispatch = useDispatch();
   const currencies = useAppSelector(state => state.converter.currencies);
+  const exchangeRate = useAppSelector(state => state.converter.exchangeRate);
   const [amount, setAmount] = useState<string>('');
+  const [result, setResult] = useState<string>('');
   const [currentCurrency, setCurrentCurrency] = useState<string>('EUR');
   const [targetCurrency, setTargetCurrency] = useState<string>('BTC');
   const handleAmountChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -23,14 +26,22 @@ const Converter: React.FC = () => {
     setTargetCurrency(event.target.value);
   }
 
-  console.log(currencies);
+  const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    console.log(convertCurrency(exchangeRate, parseFloat(amount)))
+    setResult((convertCurrency(exchangeRate, (parseFloat(amount))).toString()));
+  }
+
+  useEffect(() => {
+    dispatch(getExchangerate(currentCurrency, targetCurrency));
+  }, [currentCurrency, targetCurrency, dispatch]);
 
   useEffect(() => {
     dispatch(getCurrencies());
   }, []);
 
   return (
-    <form >
+    <form onSubmit={handleFormSubmit}>
       <div>
         <TextField label="Amount" type="number" value={amount} onChange={handleAmountChange} />        
         <TextField 
@@ -61,8 +72,11 @@ const Converter: React.FC = () => {
               </MenuItem>
             ))}
         </TextField>
-        <TextField label="Result" />
+        <TextField label="Result" value={result} />
       </div>
+      <Button  type="submit" variant="outlined" color="primary" >
+        Evaluate
+      </Button>
     </form>
   )
 };
