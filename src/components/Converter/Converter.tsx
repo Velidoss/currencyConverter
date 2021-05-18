@@ -1,27 +1,14 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import TextField from '@material-ui/core/TextField';
 import { MenuItem } from '@material-ui/core';
-
-const currencies = [
-  {
-    value: 'USD',
-    label: '$',
-  },
-  {
-    value: 'EUR',
-    label: '€',
-  },
-  {
-    value: 'BTC',
-    label: '฿',
-  },
-  {
-    value: 'JPY',
-    label: '¥',
-  },
-];
+import { useDispatch } from 'react-redux';
+import { getCurrencies } from '../../store/converter/converterActions';
+import { useAppSelector } from '../../store/hooks';
+import ICurrency from './../../interfaces/ICurrency';
 
 const Converter: React.FC = () => {
+  const dispatch = useDispatch();
+  const currencies = useAppSelector(state => state.converter.currencies);
   const [amount, setAmount] = useState<string>('');
   const [currentCurrency, setCurrentCurrency] = useState<string>('EUR');
   const [targetCurrency, setTargetCurrency] = useState<string>('BTC');
@@ -36,6 +23,12 @@ const Converter: React.FC = () => {
     setTargetCurrency(event.target.value);
   }
 
+  console.log(currencies);
+
+  useEffect(() => {
+    dispatch(getCurrencies());
+  }, []);
+
   return (
     <form >
       <div>
@@ -47,9 +40,9 @@ const Converter: React.FC = () => {
           onChange={handleCurrencyChange}
           helperText="Please select your currency"
         >
-          {currencies.map((option) => (
-            <MenuItem key={option.value} value={option.value}>
-              {option.label}
+          {currencies.map((currency: ICurrency) => (
+            <MenuItem defaultValue="USD" key={currency.id} value={currency.id}>
+              {`${currency.id} - ${currency.currencyName}`}
             </MenuItem>
           ))}
         </TextField>
@@ -62,9 +55,9 @@ const Converter: React.FC = () => {
             onChange={handleTargetCurrencyChange}
             helperText="Please select your target currency"
           >
-            {currencies.map((option) => (
-              <MenuItem key={option.value} value={option.value}>
-                {option.label}
+            {currencies.map((currency: ICurrency) => (
+              <MenuItem defaultValue="ALL" key={currency.id} value={currency.id}>
+                {`${currency.id} - ${currency.currencyName}`}
               </MenuItem>
             ))}
         </TextField>
