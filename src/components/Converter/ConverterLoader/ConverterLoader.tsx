@@ -10,15 +10,15 @@ interface ConverterLoaderProps {
 const ConverterLoader: React.FC<ConverterLoaderProps> = ({error}) => {
   const classes = styles();
   return (
-    <Grid container justify="center" alignItems="center" className={classes.root}>
+    <Grid container justify="center" direction="column" alignItems="center" className={classes.root}>
       {
         error && (
-          <Typography>
+          <Typography color="error" >
             Sorry, but API call limit has been reached. Try to use app after 1 hour.
           </Typography>
         )
       }
-      <CircularProgress />
+      <CircularProgress className={classes.progress} />
     </Grid>
   )
 };

@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import TextField from '@material-ui/core/TextField';
-import { Button, Grid, Typography } from '@material-ui/core';
+import { Button, Grid, Typography, Container } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
 import { getCurrencies, getExchangerate } from '../../store/converter/converterActions';
 import { useAppSelector } from '../../store/hooks';
@@ -86,44 +86,45 @@ const Converter: React.FC = () => {
         status === STATUS_ERROR && <ConverterLoader error={true} />
       }
       <Grid item xs={12}>
-        <form onSubmit={handleFormSubmit}>
-          <Grid container >
-            <Grid item container xs={12} justify="center" >
-              <TextField 
-                className={classes.amountField}
-                label="Amount"
-                variant="outlined"
-                type="number" 
-                value={amount} 
-                onChange={(event: React.ChangeEvent<HTMLInputElement>) => handleAmountChange(event.target.value)}
-              />        
-              <CurrencyField 
-                label={"Current currency"}
-                currencyValue={currentCurrency}
-                onChangeCallBack={handleCurrencyChange}
-                currencies={currencies}
-              />
+        <Container maxWidth="sm">
+          <form className={classes.form} onSubmit={handleFormSubmit}>
+            <Grid container >
+              <Grid className={classes.gridItem} item container xs={12} justify="center" >
+                <TextField 
+                  label="Amount"
+                  variant="outlined"
+                  type="number" 
+                  value={amount} 
+                  onChange={(event: React.ChangeEvent<HTMLInputElement>) => handleAmountChange(event.target.value)}
+                />        
+                <CurrencyField 
+                  label={"Current currency"}
+                  currencyValue={currentCurrency}
+                  onChangeCallBack={handleCurrencyChange}
+                  currencies={currencies}
+                />
+              </Grid>
+              <Grid className={classes.gridItem} item container xs={12} justify="center">
+                <CurrencyField 
+                  label={"Target currency"}
+                  currencyValue={targetCurrency}
+                  onChangeCallBack={handleTargetCurrencyChange}
+                  currencies={currencies}
+                />
+              </Grid>
+              <Grid className={classes.gridItem} item container xs={12} justify="center">
+                <Button  type="submit" variant="outlined" color="primary" >
+                  <Typography variant="subtitle1">
+                    Convert
+                  </Typography>
+                </Button>
+              </Grid>
+              <Grid className={classes.gridItem} item container xs={12} justify="center">
+                <TextField label="Result" value={result} variant="outlined" /> 
+              </Grid>
             </Grid>
-            <Grid item container xs={12} justify="center">
-              <CurrencyField 
-                label={"Target currency"}
-                currencyValue={targetCurrency}
-                onChangeCallBack={handleTargetCurrencyChange}
-                currencies={currencies}
-              />
-            </Grid>
-            <Grid item container xs={12} justify="center">
-              <Button  type="submit" variant="outlined" color="primary" >
-                <Typography variant="subtitle1">
-                  Convert
-                </Typography>
-              </Button>
-            </Grid>
-            <Grid item container xs={12} justify="center">
-              <TextField label="Result" value={result} variant="outlined" /> 
-            </Grid>
-          </Grid>
-        </form>
+          </form>
+        </Container>
       </Grid>
       <CurrenciesRate 
         currentCurrency={currentCurrency}
