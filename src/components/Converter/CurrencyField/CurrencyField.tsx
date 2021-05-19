@@ -5,7 +5,7 @@ import ICurrency from './../../../interfaces/ICurrency';
 interface CurrencyFieldProps {
   label: string; 
   currencyValue: string; 
-  onChangeCallBack: (event: React.ChangeEvent<HTMLInputElement>) => void; 
+  onChangeCallBack: (newValue: string) => void; 
   currencies: ICurrency[];
 }
 
@@ -18,7 +18,7 @@ const CurrencyField: React.FC<CurrencyFieldProps> = (
       label={label}
       select 
       value={currencyValue} 
-      onChange={onChangeCallBack}
+      onChange={(event: React.ChangeEvent<HTMLInputElement>) => onChangeCallBack(event.target.value)}
       helperText="Please select your currency"
       variant="outlined"
     >

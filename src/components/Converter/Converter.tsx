@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import TextField from '@material-ui/core/TextField';
 import { Button, Grid, Typography } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
@@ -22,25 +22,26 @@ const Converter: React.FC = () => {
   const [currentCurrency, setCurrentCurrency] = useState<string>('UAH');
   const [targetCurrency, setTargetCurrency] = useState<string>('USD');
 
-  const handleAmountChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setAmount(event.target.value);
+  const handleAmountChange = (newAmount: string) => {
+    setAmount(newAmount);
     putInLocalStorage({
-      amount: event.target.value, result, currentCurrency, targetCurrency,
+      amount: newAmount, result, currentCurrency, targetCurrency,
     });
   }
 
-  const handleCurrencyChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setCurrentCurrency(event.target.value);
+  const handleCurrencyChange = useCallback(
+    (newCurrency: string) => {
+    setCurrentCurrency(newCurrency);
     putInLocalStorage({
-      amount, result, currentCurrency: event.target.value, targetCurrency,
-    });
-  }
-  const handleTargetCurrencyChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setTargetCurrency(event.target.value);
+      amount, result, currentCurrency: newCurrency, targetCurrency,
+    })}, [amount, result, targetCurrency]);
+
+  const handleTargetCurrencyChange = useCallback(
+    (newTargetCurrency: string) => {
+    setTargetCurrency(newTargetCurrency);
     putInLocalStorage({
-      amount, result, currentCurrency, targetCurrency: event.target.value,
-    });
-  }
+      amount, result, currentCurrency, targetCurrency: newTargetCurrency,
+    })}, [amount, result, currentCurrency]);
 
   const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -83,7 +84,7 @@ const Converter: React.FC = () => {
                 variant="outlined"
                 type="number" 
                 value={amount} 
-                onChange={handleAmountChange}
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) => handleAmountChange(event.target.value)}
               />        
               <CurrencyField 
                 label={"Current currency"}
