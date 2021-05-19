@@ -1,7 +1,10 @@
-import { SET_EXCHANGE_RATE, SET_CURRENCIES, SET_CURRENCIES_RATE } from "./converterActionTypes";
+import { SET_EXCHANGE_RATE, SET_CURRENCIES, SET_CURRENCIES_RATE, SET_CONVERTER_STATUS } from "./converterActionTypes";
 import convertCurrenciesToArray from '../../utils/convertCurrenciesToArray';
 import convertCurrencyRates from './../../utils/convertCurrencyRates';
 import IConverterState from './../../interfaces/IConverterState';
+import converterContants from './../../config/converterConstants';
+
+const {STATUS_LOADING, STATUS_READY, STATUS_ERROR} = converterContants; 
 
 interface converterReducerAction {
   type: string, 
@@ -9,7 +12,7 @@ interface converterReducerAction {
 }
 
 const initialState: IConverterState = {
-  status: 'loading',
+  status: STATUS_LOADING,
   exchangeRate: 0,
   currencies: [],
   currenciesRate: [],
@@ -23,6 +26,8 @@ const converterReducer = (state = initialState, {type, payload}: converterReduce
       return {...state, exchangeRate: payload};
     case SET_CURRENCIES_RATE:
       return {...state, currenciesRate: convertCurrencyRates(payload)};
+    case SET_CONVERTER_STATUS: 
+      return {...state, status: payload}
     default: 
       return {...state};
   }

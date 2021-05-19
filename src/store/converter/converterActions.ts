@@ -1,7 +1,10 @@
 import ICurrency from '../../interfaces/ICurrency';
 import { AppThunk } from '../store';
 import { converterApiURL, converterApiKey } from './../../config/api';
-import { SET_CURRENCIES, SET_CURRENCIES_RATE, SET_EXCHANGE_RATE } from './converterActionTypes';
+import { SET_CURRENCIES, SET_CURRENCIES_RATE, SET_EXCHANGE_RATE, SET_CONVERTER_STATUS } from './converterActionTypes';
+import converterContants from './../../config/converterConstants';
+
+const {STATUS_LOADING, STATUS_READY, STATUS_ERROR} = converterContants; 
 
 const setCurrencies = (currencies: {[key: string]: ICurrency}) => ({
   type: SET_CURRENCIES,
@@ -18,6 +21,11 @@ const setCurrenciesRate = (currenciesRate: any) => ({
   payload: currenciesRate,
 });
 
+const toggleConverterState = (converterState: string) => ({
+  type: SET_CONVERTER_STATUS,
+  payload: converterState,
+});
+
 export const getCurrencies = 
 (): AppThunk =>
  async (dispatch) => {
@@ -29,6 +37,7 @@ export const getCurrencies =
     },
   });
   dispatch(setCurrencies(await response.json()));
+  console.log('got currencies')
 };
 
 export const getExchangerate = 
@@ -75,4 +84,6 @@ export const getCurrenciesRate =
       const part1 = await result1.json();
       const part2 = await result2.json();
       dispatch(setCurrenciesRate({...part1, ...part2}));
+      dispatch(toggleConverterState(STATUS_READY))
+      console.log('got rates')
     };

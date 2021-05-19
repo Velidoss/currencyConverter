@@ -12,11 +12,15 @@ import getDataFromLocalStorage from './../../store/localStorage/getDataFromLocal
 import putInLocalStorage from './../../store/localStorage/putInLocalStorage';
 import CurrencyField from './CurrencyField/CurrencyField';
 import styles from './ConverterStyles';
+import ConverterLoader from './ConverterLoader/ConverterLoader';
+import converterContants from './../../config/converterConstants';
+
+const {STATUS_LOADING, STATUS_READY, STATUS_ERROR} = converterContants; 
 
 const Converter: React.FC = () => {
   const classes = styles();
   const dispatch = useDispatch();
-  const {currenciesRate, currencies, exchangeRate}: IConverterState = useAppSelector(state => state.converter);
+  const {currenciesRate, currencies, exchangeRate, status}: IConverterState = useAppSelector(state => state.converter);
   const [amount, setAmount] = useState<string>('0');
   const [result, setResult] = useState<string>('0');
   const [currentCurrency, setCurrentCurrency] = useState<string>('UAH');
@@ -74,9 +78,12 @@ const Converter: React.FC = () => {
   console.log('render');
   return (
     <Grid container item >
+      {
+        status === STATUS_LOADING && <ConverterLoader />
+      }
       <Grid item xs={12}>
         <form onSubmit={handleFormSubmit}>
-          <Grid container spacing={3} >
+          <Grid container >
             <Grid item container xs={12} justify="center" >
               <TextField 
                 className={classes.amountField}
