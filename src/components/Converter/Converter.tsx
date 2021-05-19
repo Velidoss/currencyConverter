@@ -75,11 +75,15 @@ const Converter: React.FC = () => {
     }
     dispatch(getCurrencies());
   }, []);
-  console.log('render');
+  console.log('render', status);
+
   return (
     <Grid container item >
       {
         status === STATUS_LOADING && <ConverterLoader />
+      }
+      {
+        status === STATUS_ERROR && <ConverterLoader error={true} />
       }
       <Grid item xs={12}>
         <form onSubmit={handleFormSubmit}>
@@ -119,7 +123,6 @@ const Converter: React.FC = () => {
               <TextField label="Result" value={result} variant="outlined" /> 
             </Grid>
           </Grid>
-
         </form>
       </Grid>
       <CurrenciesRate 
