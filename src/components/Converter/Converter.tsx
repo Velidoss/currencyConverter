@@ -4,13 +4,13 @@ import { Button, MenuItem } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
 import { getCurrencies, getExchangerate } from '../../store/converter/converterActions';
 import { useAppSelector } from '../../store/hooks';
-import ICurrency from './../../interfaces/ICurrency';
 import convertCurrency from './../../utils/convertCurrency';
 import { getCurrenciesRate } from './../../store/converter/converterActions';
 import CurrenciesRate from './CurrenciesRate/CurrenciesRate';
 import IConverterState from './../../interfaces/IConverterState';
 import getDataFromLocalStorage from './../../store/localStorage/getDataFromLocalStorage';
 import putInLocalStorage from './../../store/localStorage/putInLocalStorage';
+import CurrencyField from './CurrencyField/CurrencyField';
 
 const Converter: React.FC = () => {
   const dispatch = useDispatch();
@@ -22,18 +22,31 @@ const Converter: React.FC = () => {
 
   const handleAmountChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setAmount(event.target.value);
+    putInLocalStorage({
+      amount: event.target.value, result, currentCurrency, targetCurrency,
+    });
   }
 
   const handleCurrencyChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setCurrentCurrency(event.target.value);
+    putInLocalStorage({
+      amount, result, currentCurrency: event.target.value, targetCurrency,
+    });
   }
   const handleTargetCurrencyChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setTargetCurrency(event.target.value);
+    putInLocalStorage({
+      amount, result, currentCurrency, targetCurrency: event.target.value,
+    });
   }
 
   const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setResult((convertCurrency(exchangeRate, (parseFloat(amount))).toString()));
+    const convertedResult = convertCurrency(exchangeRate, (parseFloat(amount))).toString();
+    setResult(convertedResult);
+    putInLocalStorage({
+      amount, result: convertedResult, currentCurrency, targetCurrency,
+    });
   }
 
   useEffect(() => {
@@ -54,12 +67,6 @@ const Converter: React.FC = () => {
       setTargetCurrency(storedData.targetCurrency || 'USD');
     }
     dispatch(getCurrencies());
-    return () => {
-      alert('got into LS');
-      putInLocalStorage({
-        amount, result, currentCurrency, targetCurrency,
-      });
-    }
   }, []);
 
   return (
@@ -67,34 +74,20 @@ const Converter: React.FC = () => {
       <form onSubmit={handleFormSubmit}>
         <div>
           <TextField label="Amount" type="number" value={amount} onChange={handleAmountChange} />        
-          <TextField 
-            label="Current currency" 
-            select 
-            value={currentCurrency} 
-            onChange={handleCurrencyChange}
-            helperText="Please select your currency"
-          >
-            {currencies.map((currency: ICurrency) => (
-              <MenuItem defaultValue="USD" key={currency.id} value={currency.id}>
-                {`${currency.id} - ${currency.currencyName}`}
-              </MenuItem>
-            ))}
-          </TextField>
+          <CurrencyField 
+            label={"Current currency"}
+            currencyValue={currentCurrency}
+            onChangeCallBack={handleCurrencyChange}
+            currencies={currencies}
+          />
         </div>
         <div>
-          <TextField 
-              label="Target currency" 
-              select 
-              value={targetCurrency} 
-              onChange={handleTargetCurrencyChange}
-              helperText="Please select your target currency"
-            >
-              {currencies.map((currency: ICurrency) => (
-                <MenuItem defaultValue="UAH" key={currency.id} value={currency.id}>
-                  {`${currency.id} - ${currency.currencyName}`}
-                </MenuItem>
-              ))}
-          </TextField>
+          <CurrencyField 
+            label={"Target currency"}
+            currencyValue={targetCurrency}
+            onChangeCallBack={handleTargetCurrencyChange}
+            currencies={currencies}
+          />
           <TextField label="Result" value={result} />
         </div>
         <Button  type="submit" variant="outlined" color="primary" >
