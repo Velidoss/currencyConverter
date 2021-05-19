@@ -1,14 +1,19 @@
 import React from 'react';
-import './App.css';
 import Converter from './components/Converter/Converter';
+import styles from './AppStyles';
+import { Grid } from '@material-ui/core';
 
 function App() {
+  const classes = styles();
   return (
-    <div className="App">
-      <header className="App-header">
-        <Converter />
-      </header>
-    </div>
+    <Grid 
+      container 
+      className={classes.root}
+      justify="center"
+      alignItems="center"
+    >
+      <Converter />
+    </Grid>
   );
 }
 

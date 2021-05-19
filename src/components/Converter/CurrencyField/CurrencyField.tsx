@@ -12,6 +12,7 @@ interface CurrencyFieldProps {
 const CurrencyField: React.FC<CurrencyFieldProps> = (
     {label, currencyValue, onChangeCallBack, currencies}
   ) => {
+  console.log('render');
   return (
     <TextField 
       label={label}
@@ -19,6 +20,7 @@ const CurrencyField: React.FC<CurrencyFieldProps> = (
       value={currencyValue} 
       onChange={onChangeCallBack}
       helperText="Please select your currency"
+      variant="outlined"
     >
       {currencies.map((currency: ICurrency) => (
         <MenuItem defaultValue="USD" key={currency.id} value={currency.id}>

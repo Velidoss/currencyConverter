@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import TextField from '@material-ui/core/TextField';
-import { Button, MenuItem } from '@material-ui/core';
+import { Button, Grid, Typography } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
 import { getCurrencies, getExchangerate } from '../../store/converter/converterActions';
 import { useAppSelector } from '../../store/hooks';
@@ -11,8 +11,10 @@ import IConverterState from './../../interfaces/IConverterState';
 import getDataFromLocalStorage from './../../store/localStorage/getDataFromLocalStorage';
 import putInLocalStorage from './../../store/localStorage/putInLocalStorage';
 import CurrencyField from './CurrencyField/CurrencyField';
+import styles from './ConverterStyles';
 
 const Converter: React.FC = () => {
+  const classes = styles();
   const dispatch = useDispatch();
   const {currenciesRate, currencies, exchangeRate}: IConverterState = useAppSelector(state => state.converter);
   const [amount, setAmount] = useState<string>('0');
@@ -68,37 +70,55 @@ const Converter: React.FC = () => {
     }
     dispatch(getCurrencies());
   }, []);
-
+  console.log('render');
   return (
-    <div>
-      <form onSubmit={handleFormSubmit}>
-        <div>
-          <TextField label="Amount" type="number" value={amount} onChange={handleAmountChange} />        
-          <CurrencyField 
-            label={"Current currency"}
-            currencyValue={currentCurrency}
-            onChangeCallBack={handleCurrencyChange}
-            currencies={currencies}
-          />
-        </div>
-        <div>
-          <CurrencyField 
-            label={"Target currency"}
-            currencyValue={targetCurrency}
-            onChangeCallBack={handleTargetCurrencyChange}
-            currencies={currencies}
-          />
-          <TextField label="Result" value={result} />
-        </div>
-        <Button  type="submit" variant="outlined" color="primary" >
-          Evaluate
-        </Button>
-      </form>
+    <Grid container item >
+      <Grid item xs={12}>
+        <form onSubmit={handleFormSubmit}>
+          <Grid container spacing={3} >
+            <Grid item container xs={12} justify="center" >
+              <TextField 
+                className={classes.amountField}
+                label="Amount"
+                variant="outlined"
+                type="number" 
+                value={amount} 
+                onChange={handleAmountChange}
+              />        
+              <CurrencyField 
+                label={"Current currency"}
+                currencyValue={currentCurrency}
+                onChangeCallBack={handleCurrencyChange}
+                currencies={currencies}
+              />
+            </Grid>
+            <Grid item container xs={12} justify="center">
+              <CurrencyField 
+                label={"Target currency"}
+                currencyValue={targetCurrency}
+                onChangeCallBack={handleTargetCurrencyChange}
+                currencies={currencies}
+              />
+            </Grid>
+            <Grid item container xs={12} justify="center">
+              <Button  type="submit" variant="outlined" color="primary" >
+                <Typography variant="subtitle1">
+                  Convert
+                </Typography>
+              </Button>
+            </Grid>
+            <Grid item container xs={12} justify="center">
+              <TextField label="Result" value={result} variant="outlined" /> 
+            </Grid>
+          </Grid>
+
+        </form>
+      </Grid>
       <CurrenciesRate 
         currentCurrency={currentCurrency}
         currenciesRate={currenciesRate} 
       />
-    </div>
+    </Grid>
     
   )
 };
