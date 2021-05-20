@@ -42,10 +42,8 @@ const CurrenciesRate: React.FC<CurrenciesRateProps> = ({currenciesRate, currentC
         )
         : <CircularProgress />
       }
-      
     </Grid>
-
-    );
+  );
 };
 
 export default CurrenciesRate;
