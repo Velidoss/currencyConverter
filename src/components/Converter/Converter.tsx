@@ -69,7 +69,6 @@ const Converter: React.FC = () => {
 
   useEffect(() => {
     const storedData = getDataFromLocalStorage();
-    console.log(storedData)
     if (typeof storedData !== 'string') {
       setAmount(storedData.amount || '0');
       setResult(storedData.result || '0');
@@ -78,7 +77,6 @@ const Converter: React.FC = () => {
     }
     dispatch(getCurrencies());
   }, []);
-  console.log('render', status);
 
   return (
     <Grid container item >       

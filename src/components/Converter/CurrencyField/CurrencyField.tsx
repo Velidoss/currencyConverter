@@ -15,7 +15,6 @@ const CurrencyField: React.FC<CurrencyFieldProps> = React.memo((
     {label, currencyValue, onChangeCallBack, currencies}
   ) => {
   const classes = styles();
-  console.log(currencies.length > 0)
   return (
     <TextField 
       label={<Typography variant="subtitle2" >{label}</Typography>}

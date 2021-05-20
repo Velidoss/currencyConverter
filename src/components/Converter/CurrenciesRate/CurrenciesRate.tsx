@@ -14,7 +14,6 @@ const CurrenciesRate: React.FC<CurrenciesRateProps> = ({currenciesRate, currentC
   const {STATUS_ERROR, STATUS_READY} = converterContants; 
   const {currenciesRateStatus}: IConverterState = useAppSelector(state => state.converter);
   const classes = style();
-  console.log('render currency field');
   return (
     <Grid container justify="center">
       {
