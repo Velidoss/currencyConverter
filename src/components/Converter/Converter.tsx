@@ -14,8 +14,10 @@ import CurrencyField from './CurrencyField/CurrencyField';
 import styles from './ConverterStyles';
 import ConverterLoader from './ConverterLoader/ConverterLoader';
 import converterContants from './../../config/converterConstants';
+import ConverterError from './ConverterError/ConverterError';
+import ConverterButton from './ConvertButton/ConvertButton';
 
-const {STATUS_LOADING, STATUS_READY, STATUS_ERROR} = converterContants; 
+const {STATUS_LOADING, STATUS_ERROR} = converterContants; 
 
 const Converter: React.FC = () => {
   const classes = styles();
@@ -92,7 +94,7 @@ const Converter: React.FC = () => {
                 status === STATUS_LOADING && <ConverterLoader />
               }
               {
-                status === STATUS_ERROR && <ConverterLoader error={true} />
+                status === STATUS_ERROR && <ConverterError />
               }
               <Grid 
                 className={classes.gridItem} 
@@ -132,11 +134,7 @@ const Converter: React.FC = () => {
                     />
                   </Grid>
                   <Grid className={classes.gridItem} item container xs={12} justify="center">
-                    <Button  type="submit" variant="outlined" color="primary" >
-                      <Typography variant="subtitle1">
-                        Convert
-                      </Typography>
-                    </Button>
+                    <ConverterButton status={status} />
                   </Grid>                  
                   <Grid className={classes.gridItem} item container xs={12} justify="center">
                     <TextField label="Result" value={result} variant="outlined" /> 

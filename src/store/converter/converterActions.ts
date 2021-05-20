@@ -1,7 +1,7 @@
 import ICurrency from '../../interfaces/ICurrency';
 import { AppThunk } from '../store';
 import { converterApiURL, converterApiKey } from './../../config/api';
-import { SET_CURRENCIES, SET_CURRENCIES_RATE, SET_EXCHANGE_RATE, SET_CONVERTER_STATUS } from './converterActionTypes';
+import { SET_CURRENCIES, SET_CURRENCIES_RATE, SET_EXCHANGE_RATE, SET_CONVERTER_STATUS, SET_CURRENCIES_RATE_STATUS } from './converterActionTypes';
 import converterContants from './../../config/converterConstants';
 
 const {STATUS_LOADING, STATUS_READY, STATUS_ERROR} = converterContants; 
@@ -19,6 +19,11 @@ const setExchangeRate = (exchangeRate: number) => ({
 const setCurrenciesRate = (currenciesRate: any) => ({
   type: SET_CURRENCIES_RATE,
   payload: currenciesRate,
+});
+
+const setCurrenciesRateStatus = (currenciesRateStatus: string) => ({
+  type: SET_CURRENCIES_RATE_STATUS,
+  payload: currenciesRateStatus,
 });
 
 const toggleConverterState = (converterState: string) => ({
@@ -49,6 +54,7 @@ export const getExchangerate =
 (currentCurrencyId: string, targetCurrencyId: string): AppThunk =>
   async (dispatch) => {
     try{
+      dispatch(setCurrenciesRateStatus(STATUS_LOADING))
       const response = await fetch(
         `${converterApiURL}convert?apiKey=${converterApiKey}&q=${currentCurrencyId}_${targetCurrencyId}&compact=ultra`, 
           {
@@ -59,9 +65,11 @@ export const getExchangerate =
             },
         });
       dispatch(setExchangeRate(await response.json()));
+      dispatch(setCurrenciesRateStatus(STATUS_READY));
     }catch(error) {
       dispatch(toggleConverterState(STATUS_ERROR));
     }
+   
   };
 
 export const getCurrenciesRate = 

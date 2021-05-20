@@ -21,7 +21,7 @@ const ConverterStyles = makeStyles((theme: Theme) => createStyles({
     marginBottom: 20,
   },
   gridAmountField: {
-    maxWidth: 210,
+    width: 210,
   },
   currentCurrency: {
     [theme.breakpoints.down('xs')]: { marginTop: 20 },

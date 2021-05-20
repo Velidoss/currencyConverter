@@ -5,4 +5,5 @@ export default interface IConverterState {
   exchangeRate: number;
   currencies: any;
   currenciesRate: ICurrencyRateToShow[];
+  currenciesRateStatus: string;
 }
