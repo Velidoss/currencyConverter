@@ -11,7 +11,7 @@ interface CurrenciesRateProps {
 }
 
 const CurrenciesRate: React.FC<CurrenciesRateProps> = ({currenciesRate, currentCurrency}) => {
-  const {STATUS_ERROR, STATUS_READY} = converterContants; 
+  const { STATUS_READY } = converterContants; 
   const {currenciesRateStatus}: IConverterState = useAppSelector(state => state.converter);
   const classes = style();
   return (

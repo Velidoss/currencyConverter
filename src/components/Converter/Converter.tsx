@@ -99,11 +99,10 @@ const Converter: React.FC = () => {
                 container 
                 xs={12} 
                 justify="center"
-                style={{borderRadius: 20}}
               >
                 <Grid item container justify="center" sm={6}>
                   <TextField 
-                    style={{maxWidth: 235}}
+                    className={classes.gridAmountField}
                     label="Amount"
                     variant="outlined"
                     type="number" 
