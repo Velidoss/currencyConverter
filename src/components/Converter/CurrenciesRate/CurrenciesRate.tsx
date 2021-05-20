@@ -1,4 +1,4 @@
-import { Grid, List, ListItem, ListSubheader } from "@material-ui/core";
+import { Divider, Grid, List, ListItem, ListSubheader, Typography } from "@material-ui/core";
 import { ICurrencyRateToShow } from './../../../interfaces/ICurrencyRateToShow';
 import style from './CurrenciesRateStyles';
 
@@ -15,7 +15,7 @@ const CurrenciesRate: React.FC<CurrenciesRateProps> = ({currenciesRate, currentC
         className={classes.list}
         component="div"
         subheader={
-          <ListSubheader component="div" >
+          <ListSubheader component="div" className={classes.listHeader} >
             Currencies rate
           </ListSubheader>
         }
@@ -23,7 +23,9 @@ const CurrenciesRate: React.FC<CurrenciesRateProps> = ({currenciesRate, currentC
         {
           currenciesRate.map((currency) => (
             <ListItem key={currency.id}>
-              {`1 ${currency.id} = ${(currency.exchangeRate).toFixed(2)} ${currentCurrency}`}
+              <Typography>
+                {`1 ${currency.id} = ${(currency.exchangeRate).toFixed(2)} ${currentCurrency}`}
+              </Typography>
             </ListItem>
           ))
         }

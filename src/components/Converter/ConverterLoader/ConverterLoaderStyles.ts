@@ -10,6 +10,9 @@ const ConverterLoaderStyles = makeStyles((theme: Theme) => createStyles({
       top:0,
       left: 0,
     },
+    progress: {
+      marginTop:20,
+    }
   }
   )
 )

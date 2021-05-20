@@ -1,5 +1,5 @@
 import React from 'react';
-import { MenuItem, TextField } from '@material-ui/core';
+import { MenuItem, TextField, Typography } from '@material-ui/core';
 import ICurrency from './../../../interfaces/ICurrency';
 
 interface CurrencyFieldProps {
@@ -15,11 +15,10 @@ const CurrencyField: React.FC<CurrencyFieldProps> = React.memo((
   console.log('render');
   return (
     <TextField 
-      label={label}
+      label={<Typography variant="subtitle2" >{label}</Typography>}
       select 
       value={currencyValue} 
       onChange={(event: React.ChangeEvent<HTMLInputElement>) => onChangeCallBack(event.target.value)}
-      helperText="Please select your currency"
       variant="outlined"
     >
       {currencies.map((currency: ICurrency) => (
