@@ -12,10 +12,6 @@ const ConverterStyles = makeStyles((theme: Theme) => createStyles({
     position: 'relative',
     borderRadius: 20,
   },
-  converterTitle: {
-    paddingTop: 20,
-    fontSize: 32,
-  },
   gridItem: {
     marginTop: 20,
     marginBottom: 20,
