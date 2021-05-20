@@ -87,6 +87,9 @@ const Converter: React.FC = () => {
       }
       <Grid item xs={12}>
         <Container maxWidth="sm">
+          <Typography variant="h2" align="center">
+            Currency Converter
+          </Typography>
           <form className={classes.form} onSubmit={handleFormSubmit}>
             <Grid container >
               <Grid 
