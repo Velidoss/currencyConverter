@@ -8,14 +8,20 @@ const ConverterStyles = makeStyles((theme: Theme) => createStyles({
     background: 'white',
     borderRadius: 20,
   },
+  formFields: {
+    position: 'relative',
+    borderRadius: 20,
+  },
+  converterTitle: {
+    paddingTop: 20,
+    fontSize: 32,
+  },
   gridItem: {
     marginTop: 20,
     marginBottom: 20,
   },
-  gridAmountItem: {
-    marginTop: 20,
-    marginBottom: 20,
-    [theme.breakpoints.up('sm')]: { flexDirection: 'column' },
+  gridAmountField: {
+    maxWidth: 210,
   },
   currentCurrency: {
     [theme.breakpoints.down('xs')]: { marginTop: 20 },

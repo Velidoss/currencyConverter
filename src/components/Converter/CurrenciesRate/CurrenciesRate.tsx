@@ -9,6 +9,7 @@ interface CurrenciesRateProps {
 
 const CurrenciesRate: React.FC<CurrenciesRateProps> = ({currenciesRate, currentCurrency}) => {
   const classes = style();
+  console.log('render currency field');
   return (
     <Grid container justify="center">
       <List 
@@ -29,7 +30,6 @@ const CurrenciesRate: React.FC<CurrenciesRateProps> = ({currenciesRate, currentC
             </ListItem>
           ))
         }
-
       </List>
     </Grid>
 

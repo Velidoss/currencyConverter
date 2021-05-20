@@ -78,29 +78,33 @@ const Converter: React.FC = () => {
   console.log('render', status);
 
   return (
-    <Grid container item >
-      {
-        status === STATUS_LOADING && <ConverterLoader />
-      }
-      {
-        // status === STATUS_ERROR && <ConverterLoader error={true} />
-      }
+    <Grid container item >       
       <Grid item xs={12}>
         <Container maxWidth="sm">
-          <Typography variant="h2" align="center">
-            Currency Converter
-          </Typography>
-          <form className={classes.form} onSubmit={handleFormSubmit}>
-            <Grid container >
+          <form className={classes.form} onSubmit={handleFormSubmit}>              
+            <Grid item className={classes.gridItem} >
+              <Typography variant="h1" align="center" className={classes.converterTitle}>
+                Currency Converter
+              </Typography>
+            </Grid>
+            <Grid className={classes.formFields} item container xs={12} justify="center">
+              {
+                status === STATUS_LOADING && <ConverterLoader />
+              }
+              {
+                status === STATUS_ERROR && <ConverterLoader error={true} />
+              }
               <Grid 
                 className={classes.gridItem} 
                 item 
                 container 
                 xs={12} 
                 justify="center"
+                style={{borderRadius: 20}}
               >
                 <Grid item container justify="center" sm={6}>
                   <TextField 
+                    style={{maxWidth: 235}}
                     label="Amount"
                     variant="outlined"
                     type="number" 
@@ -117,9 +121,9 @@ const Converter: React.FC = () => {
                   />
                 </Grid>
               </Grid>
-              <Grid item container xs={12}>
-                <Grid xs={6}>
-                  <Grid className={classes.gridItem} item container xs={12} justify="center">
+              <Grid item container justify="center" xs={12}>
+                <Grid item sm={6} className={classes.gridItem}>
+                  <Grid item container xs={12} justify="center">
                     <CurrencyField 
                       label={"Target currency"}
                       currencyValue={targetCurrency}
@@ -138,7 +142,7 @@ const Converter: React.FC = () => {
                     <TextField label="Result" value={result} variant="outlined" /> 
                   </Grid>
                 </Grid>
-                <Grid xs={6}>
+                <Grid item container sm={6} className={classes.gridItem}>
                   <CurrenciesRate 
                     currentCurrency={currentCurrency}
                     currenciesRate={currenciesRate} 
@@ -149,9 +153,7 @@ const Converter: React.FC = () => {
           </form>
         </Container>
       </Grid>
-
     </Grid>
-    
   )
 };
 
