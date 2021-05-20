@@ -2,6 +2,8 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 TO RUN PROJECT ON YOUR COMPUTER YOU NEED TO CREATE .env.local FILE IN PROJECT FOLDER AND ADD "REACT_APP_CONVERTER_API_KEY" VARIABLE WITH API KEY FROM https://free.currencyconverterapi.com/
 
+APPLICATION DEPLOY: https://currency-converter-botscrew.netlify.app
+
 ## Available Scripts
 
 In the project directory, you can run:
