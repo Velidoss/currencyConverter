@@ -16,6 +16,7 @@ import ConverterLoader from './ConverterLoader/ConverterLoader';
 import converterContants from './../../config/converterConstants';
 import ConverterError from './ConverterError/ConverterError';
 import ConverterButton from './ConvertButton/ConvertButton';
+import ConverterTitle from './ConverterTitle/ConverterTitle';
 
 const {STATUS_LOADING, STATUS_ERROR} = converterContants; 
 
@@ -33,7 +34,7 @@ const Converter: React.FC = () => {
     putInLocalStorage({
       amount: newAmount, result, currentCurrency, targetCurrency,
     });
-  }
+  };
 
   const handleCurrencyChange = useCallback(
     (newCurrency: string) => {
@@ -85,9 +86,7 @@ const Converter: React.FC = () => {
         <Container maxWidth="sm">
           <form className={classes.form} onSubmit={handleFormSubmit}>              
             <Grid item className={classes.gridItem} >
-              <Typography variant="h1" align="center" className={classes.converterTitle}>
-                Currency Converter
-              </Typography>
+              <ConverterTitle />
             </Grid>
             <Grid className={classes.formFields} item container xs={12} justify="center">
               {

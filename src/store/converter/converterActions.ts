@@ -43,7 +43,6 @@ export const getCurrencies =
       },
     });
     dispatch(setCurrencies(await response.json()));
-    console.log('got currencies')
    }catch(error) {
     dispatch(toggleConverterState(STATUS_ERROR));
    }
@@ -103,7 +102,6 @@ export const getCurrenciesRate =
         const part2 = await result2.json();
         dispatch(setCurrenciesRate({...part1, ...part2}));
         dispatch(toggleConverterState(STATUS_READY))
-        console.log('got rates')
       }catch(error){
         dispatch(toggleConverterState(STATUS_ERROR));
       }
