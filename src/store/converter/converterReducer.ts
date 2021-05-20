@@ -4,7 +4,7 @@ import convertCurrencyRates from './../../utils/convertCurrencyRates';
 import IConverterState from './../../interfaces/IConverterState';
 import converterContants from '../../config/converterConstants';
 
-const {STATUS_LOADING, STATUS_READY, STATUS_ERROR} = converterContants; 
+const { STATUS_LOADING } = converterContants; 
 
 interface converterReducerAction {
   type: string, 

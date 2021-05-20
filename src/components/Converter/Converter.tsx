@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import TextField from '@material-ui/core/TextField';
-import { Button, Grid, Typography, Container } from '@material-ui/core';
+import { Grid, Container } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
 import { getCurrencies, getExchangerate } from '../../store/converter/converterActions';
 import { useAppSelector } from '../../store/hooks';
@@ -76,7 +76,7 @@ const Converter: React.FC = () => {
       setTargetCurrency(storedData.targetCurrency || 'USD');
     }
     dispatch(getCurrencies());
-  }, []);
+  }, [dispatch]);
 
   return (
     <Grid container item >       

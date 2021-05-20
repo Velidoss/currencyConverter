@@ -1,6 +1,5 @@
 import ICurrency from '../../interfaces/ICurrency';
 import { AppThunk } from '../store';
-import { converterApiURL, converterApiKey } from './../../config/api';
 import { SET_CURRENCIES, SET_CURRENCIES_RATE, SET_EXCHANGE_RATE, SET_CONVERTER_STATUS, SET_CURRENCIES_RATE_STATUS } from './converterActionTypes';
 import converterContants from './../../config/converterConstants';
 import fetchCurrencies from './../dataAccess/fetchCurrencies';
