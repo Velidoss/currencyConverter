@@ -83,7 +83,7 @@ const Converter: React.FC = () => {
         status === STATUS_LOADING && <ConverterLoader />
       }
       {
-        status === STATUS_ERROR && <ConverterLoader error={true} />
+        // status === STATUS_ERROR && <ConverterLoader error={true} />
       }
       <Grid item xs={12}>
         <form onSubmit={handleFormSubmit}>

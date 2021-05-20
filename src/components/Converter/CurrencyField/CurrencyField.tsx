@@ -9,7 +9,7 @@ interface CurrencyFieldProps {
   currencies: ICurrency[];
 }
 
-const CurrencyField: React.FC<CurrencyFieldProps> = (
+const CurrencyField: React.FC<CurrencyFieldProps> = React.memo((
     {label, currencyValue, onChangeCallBack, currencies}
   ) => {
   console.log('render');
@@ -29,6 +29,6 @@ const CurrencyField: React.FC<CurrencyFieldProps> = (
       ))}
     </TextField>
   )
-};
+});
 
 export default CurrencyField;
