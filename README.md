@@ -1,4 +1,6 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) template.
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) template.
+
+TO RUN PROJECT ON YOUR COMPUTER YOU NEED TO CREATE .env.local FILE IN PROJECT FOLDER AND ADD "REACT_APP_CONVERTER_API_KEY" VARIABLE WITH API KEY FROM https://free.currencyconverterapi.com/
 
 ## Available Scripts
 
