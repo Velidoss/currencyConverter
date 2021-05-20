@@ -11,6 +11,14 @@ const ConverterStyles = makeStyles((theme: Theme) => createStyles({
   gridItem: {
     marginTop: 20,
     marginBottom: 20,
+  },
+  gridAmountItem: {
+    marginTop: 20,
+    marginBottom: 20,
+    [theme.breakpoints.up('sm')]: { flexDirection: 'column' },
+  },
+  currentCurrency: {
+    [theme.breakpoints.down('xs')]: { marginTop: 20 },
   }
 }))
 

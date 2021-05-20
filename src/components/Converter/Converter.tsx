@@ -83,53 +83,70 @@ const Converter: React.FC = () => {
         status === STATUS_LOADING && <ConverterLoader />
       }
       {
-        status === STATUS_ERROR && <ConverterLoader error={true} />
+        // status === STATUS_ERROR && <ConverterLoader error={true} />
       }
       <Grid item xs={12}>
         <Container maxWidth="sm">
           <form className={classes.form} onSubmit={handleFormSubmit}>
             <Grid container >
-              <Grid className={classes.gridItem} item container xs={12} justify="center" >
-                <TextField 
-                  label="Amount"
-                  variant="outlined"
-                  type="number" 
-                  value={amount} 
-                  onChange={(event: React.ChangeEvent<HTMLInputElement>) => handleAmountChange(event.target.value)}
-                />        
-                <CurrencyField 
-                  label={"Current currency"}
-                  currencyValue={currentCurrency}
-                  onChangeCallBack={handleCurrencyChange}
-                  currencies={currencies}
-                />
+              <Grid 
+                className={classes.gridItem} 
+                item 
+                container 
+                xs={12} 
+                justify="center"
+              >
+                <Grid item container justify="center" sm={6}>
+                  <TextField 
+                    label="Amount"
+                    variant="outlined"
+                    type="number" 
+                    value={amount} 
+                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => handleAmountChange(event.target.value)}
+                  />  
+                </Grid>
+                <Grid item container justify="center" sm={6} className={classes.currentCurrency}>
+                  <CurrencyField 
+                    label={"Current currency"}
+                    currencyValue={currentCurrency}
+                    onChangeCallBack={handleCurrencyChange}
+                    currencies={currencies}
+                  />
+                </Grid>
               </Grid>
-              <Grid className={classes.gridItem} item container xs={12} justify="center">
-                <CurrencyField 
-                  label={"Target currency"}
-                  currencyValue={targetCurrency}
-                  onChangeCallBack={handleTargetCurrencyChange}
-                  currencies={currencies}
-                />
-              </Grid>
-              <Grid className={classes.gridItem} item container xs={12} justify="center">
-                <Button  type="submit" variant="outlined" color="primary" >
-                  <Typography variant="subtitle1">
-                    Convert
-                  </Typography>
-                </Button>
-              </Grid>
-              <Grid className={classes.gridItem} item container xs={12} justify="center">
-                <TextField label="Result" value={result} variant="outlined" /> 
+              <Grid item container xs={12}>
+                <Grid xs={6}>
+                  <Grid className={classes.gridItem} item container xs={12} justify="center">
+                    <CurrencyField 
+                      label={"Target currency"}
+                      currencyValue={targetCurrency}
+                      onChangeCallBack={handleTargetCurrencyChange}
+                      currencies={currencies}
+                    />
+                  </Grid>
+                  <Grid className={classes.gridItem} item container xs={12} justify="center">
+                    <Button  type="submit" variant="outlined" color="primary" >
+                      <Typography variant="subtitle1">
+                        Convert
+                      </Typography>
+                    </Button>
+                  </Grid>                  
+                  <Grid className={classes.gridItem} item container xs={12} justify="center">
+                    <TextField label="Result" value={result} variant="outlined" /> 
+                  </Grid>
+                </Grid>
+                <Grid xs={6}>
+                  <CurrenciesRate 
+                    currentCurrency={currentCurrency}
+                    currenciesRate={currenciesRate} 
+                  />
+                </Grid>
               </Grid>
             </Grid>
           </form>
         </Container>
       </Grid>
-      <CurrenciesRate 
-        currentCurrency={currentCurrency}
-        currenciesRate={currenciesRate} 
-      />
+
     </Grid>
     
   )
